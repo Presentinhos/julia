@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <title>Para Júlia 🎁</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0d0b0f;
+      --surface: #141118;
+      --gold: #c9a96e;
+      --gold-light: #e8c98a;
+      --text: #f0e8dd;
+      --text-muted: #7a6e64;
+      --blur-color: #4a3f35;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1.5rem 3rem;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Atmospheric background */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 40% at 50% 0%, rgba(201,169,110,0.08) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 30% at 80% 80%, rgba(180,100,80,0.06) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 420px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2.5rem;
+    }
+
+    /* Header */
+    .header {
+      text-align: center;
+      animation: fadeUp 1s ease both;
+    }
+
+    .greeting {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-weight: 300;
+      font-size: 1rem;
+      color: var(--gold);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 0.4rem;
+    }
+
+    .name {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: 3.2rem;
+      line-height: 1;
+      letter-spacing: -0.01em;
+      color: var(--text);
+    }
+
+    /* Present */
+    .present-wrapper {
+      animation: fadeUp 1s 0.2s ease both;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .present-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .present-icon {
+      width: 90px;
+      height: 90px;
+      position: relative;
+      transition: transform 0.3s ease;
+      filter: drop-shadow(0 0 20px rgba(201,169,110,0.3));
+    }
+
+    .present-btn:active .present-icon {
+      transform: scale(0.92);
+    }
+
+    .present-hint {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    /* Modal */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(13,11,15,0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      padding: 2rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .modal {
+      background: var(--surface);
+      border: 1px solid rgba(201,169,110,0.2);
+      border-radius: 20px;
+      padding: 2.5rem 2rem;
+      text-align: center;
+      max-width: 340px;
+      width: 100%;
+      transform: translateY(20px) scale(0.97);
+      transition: transform 0.4s ease;
+      box-shadow: 0 40px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(201,169,110,0.05);
+    }
+
+    .modal-overlay.active .modal {
+      transform: translateY(0) scale(1);
+    }
+
+    .modal-emoji {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .modal-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1.5rem;
+      color: var(--gold-light);
+      margin-bottom: 1rem;
+      font-weight: 300;
+    }
+
+    .modal-text {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+    }
+
+    .countdown {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      margin-bottom: 1.8rem;
+    }
+
+    .count-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.2rem;
+    }
+
+    .count-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.4rem;
+      font-weight: 300;
+      color: var(--gold);
+      line-height: 1;
+    }
+
+    .count-label {
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .count-sep {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      color: var(--text-muted);
+      align-self: flex-start;
+      margin-top: 0.1rem;
+    }
+
+    .modal-close {
+      background: rgba(201,169,110,0.1);
+      border: 1px solid rgba(201,169,110,0.25);
+      color: var(--gold);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.75rem 2rem;
+      border-radius: 100px;
+      cursor: pointer;
+      transition: background 0.2s;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .modal-close:active {
+      background: rgba(201,169,110,0.2);
+    }
+
+    /* Phrases */
+    .phrases {
+      animation: fadeUp 1s 0.4s ease both;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 1.4rem;
+    }
+
+    .phrase-label {
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 0.6rem;
+    }
+
+    .phrase {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 16px;
+      padding: 1.4rem 1.5rem;
+    }
+
+    .phrase-words {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      line-height: 1.8;
+      font-weight: 300;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.3rem;
+    }
+
+    .word {
+      display: inline-block;
+      position: relative;
+      transition: filter 0.8s ease, color 0.8s ease;
+    }
+
+    .word.revealed {
+      color: var(--text);
+      filter: none;
+    }
+
+    .word.blurred {
+      color: rgba(240,232,221,0.08);
+      filter: blur(5px);
+      user-select: none;
+    }
+
+    /* Day progress */
+    .day-info {
+      text-align: center;
+      animation: fadeUp 1s 0.5s ease both;
+    }
+
+    .day-text {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      letter-spacing: 0.1em;
+    }
+
+    .day-progress {
+      margin-top: 0.8rem;
+      height: 2px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 2px;
+      overflow: hidden;
+      width: 100%;
+    }
+
+    .day-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--gold), var(--gold-light));
+      border-radius: 2px;
+      transition: width 1s ease;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Present SVG pulse */
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-6px); }
+    }
+
+    .present-icon {
+      animation: float 3s ease-in-out infinite;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Header -->
+  <div class="header">
+    <p class="greeting">para você,</p>
+    <h1 class="name">Júlia</h1>
+  </div>
+
+  <!-- Present -->
+  <div class="present-wrapper">
+    <button class="present-btn" onclick="openModal()" aria-label="Abrir presente">
+      <svg class="present-icon" viewBox="0 0 90 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Box bottom -->
+        <rect x="10" y="42" width="70" height="38" rx="4" fill="#2a2018" stroke="#c9a96e" stroke-width="1.5"/>
+        <!-- Box lid -->
+        <rect x="6" y="32" width="78" height="14" rx="4" fill="#332819" stroke="#c9a96e" stroke-width="1.5"/>
+        <!-- Vertical ribbon -->
+        <rect x="41" y="32" width="8" height="48" fill="rgba(201,169,110,0.35)"/>
+        <!-- Horizontal ribbon on lid -->
+        <rect x="6" y="37" width="78" height="4" fill="rgba(201,169,110,0.35)"/>
+        <!-- Bow left loop -->
+        <path d="M45 32 Q28 14 22 22 Q16 30 45 32" fill="none" stroke="#c9a96e" stroke-width="1.8" stroke-linecap="round"/>
+        <!-- Bow right loop -->
+        <path d="M45 32 Q62 14 68 22 Q74 30 45 32" fill="none" stroke="#c9a96e" stroke-width="1.8" stroke-linecap="round"/>
+        <!-- Bow center -->
+        <circle cx="45" cy="32" r="3.5" fill="#c9a96e"/>
+        <!-- Shimmer -->
+        <ellipse cx="45" cy="61" rx="20" ry="4" fill="rgba(201,169,110,0.06)"/>
+      </svg>
+      <span class="present-hint">toque para ver</span>
+    </button>
+  </div>
+
+  <!-- Phrases -->
+  <div class="phrases">
+    <div class="phrase" id="phrase1-box">
+      <div class="phrase-words" id="phrase1"></div>
+    </div>
+    <div class="phrase" id="phrase2-box">
+      <div class="phrase-words" id="phrase2"></div>
+    </div>
+  </div>
+
+  <!-- Day info -->
+  <div class="day-info" style="width:100%">
+    <p class="day-text" id="dayText"></p>
+    <div class="day-progress">
+      <div class="day-fill" id="dayFill"></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Modal -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
+  <div class="modal">
+    <span class="modal-emoji">🔒</span>
+    <h2 class="modal-title">Ainda não, meu bem</h2>
+    <p class="modal-text">Este presente só poderá ser aberto no dia do seu aniversário.<br>Aguarda um pouquinho...</p>
+    <div class="countdown" id="countdown"></div>
+    <button class="modal-close" onclick="closeModal()">tudo bem ♡</button>
+  </div>
+</div>
+
+<script>
+  // ── CONFIG ──────────────────────────────────────────────
+  const START_DATE   = new Date('2026-06-01T00:00:00'); // dia 1
+  const TARGET_DATE  = new Date('2026-06-18T00:00:00'); // aniversário
+
+  const PHRASE1_WORDS = ['Absolutamente', 'do', 'nada,', 'apareceu', 'alguém', 'que', 'se', 'propôs', 'a', 'ficar.'];
+  const PHRASE2_WORDS = ['Essa', 'pessoa', 'me', 'ensina', 'o', 'que', 'é', 'amar.'];
+  // ────────────────────────────────────────────────────────
+
+  function getDayNumber() {
+    const now = new Date();
+    const start = new Date(START_DATE);
+    start.setHours(0,0,0,0);
+    const today = new Date(now);
+    today.setHours(0,0,0,0);
+    const diff = Math.floor((today - start) / 86400000) + 1;
+    return Math.max(1, Math.min(diff, 18));
+  }
+
+  function renderPhrases(day) {
+    const p1 = document.getElementById('phrase1');
+    const p2 = document.getElementById('phrase2');
+
+    // Phrase 1: words revealed from day 1 to day 10
+    PHRASE1_WORDS.forEach((word, i) => {
+      const span = document.createElement('span');
+      span.className = 'word ' + (day >= i + 1 ? 'revealed' : 'blurred');
+      span.textContent = word;
+      p1.appendChild(span);
+    });
+
+    // Phrase 2: words revealed from day 11 to day 18
+    PHRASE2_WORDS.forEach((word, i) => {
+      const span = document.createElement('span');
+      const revealDay = 11 + i;
+      span.className = 'word ' + (day >= revealDay ? 'revealed' : 'blurred');
+      span.textContent = word;
+      p2.appendChild(span);
+    });
+  }
+
+  function renderDayInfo(day) {
+    const el = document.getElementById('dayText');
+    const fill = document.getElementById('dayFill');
+    el.textContent = `dia ${day} de 18`;
+    fill.style.width = `${(day / 18) * 100}%`;
+  }
+
+  function updateCountdown() {
+    const now = new Date();
+    const diff = TARGET_DATE - now;
+    if (diff <= 0) {
+      document.getElementById('countdown').innerHTML = `<span style="font-family:'Cormorant Garamond',serif;font-size:1.4rem;color:var(--gold)">Chegou o dia! 🎉</span>`;
+      return;
+    }
+    const days    = Math.floor(diff / 86400000);
+    const hours   = Math.floor((diff % 86400000) / 3600000);
+    const minutes = Math.floor((diff % 3600000) / 60000);
+
+    document.getElementById('countdown').innerHTML = `
+      <div class="count-block"><span class="count-num">${days}</span><span class="count-label">dias</span></div>
+      <span class="count-sep">·</span>
+      <div class="count-block"><span class="count-num">${String(hours).padStart(2,'0')}</span><span class="count-label">horas</span></div>
+      <span class="count-sep">·</span>
+      <div class="count-block"><span class="count-num">${String(minutes).padStart(2,'0')}</span><span class="count-label">min</span></div>
+    `;
+  }
+
+  function openModal() {
+    updateCountdown();
+    document.getElementById('modalOverlay').classList.add('active');
+  }
+
+  function closeModal() {
+    document.getElementById('modalOverlay').classList.remove('active');
+  }
+
+  function closeModalOutside(e) {
+    if (e.target === document.getElementById('modalOverlay')) closeModal();
+  }
+
+  // Init
+  const day = getDayNumber();
+  renderPhrases(day);
+  renderDayInfo(day);
+</script>
+</body>
+</html>
