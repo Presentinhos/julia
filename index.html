@@ -288,6 +288,8 @@
       color: rgba(240,232,221,0.08);
       filter: blur(5px);
       user-select: none;
+      -webkit-user-select: none;
+      pointer-events: none;
     }
 
     /* Day progress */
@@ -372,9 +374,11 @@
   <!-- Phrases -->
   <div class="phrases">
     <div class="phrase" id="phrase1-box">
+      <p class="phrase-label">frase um</p>
       <div class="phrase-words" id="phrase1"></div>
     </div>
     <div class="phrase" id="phrase2-box">
+      <p class="phrase-label">frase dois</p>
       <div class="phrase-words" id="phrase2"></div>
     </div>
   </div>
@@ -393,7 +397,7 @@
 <div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
   <div class="modal">
     <span class="modal-emoji">🔒</span>
-    <h2 class="modal-title">Ainda não, meu bem</h2>
+    <h2 class="modal-title">Ainda não, meu amor</h2>
     <p class="modal-text">Este presente só poderá ser aberto no dia do seu aniversário.<br>Aguarda um pouquinho...</p>
     <div class="countdown" id="countdown"></div>
     <button class="modal-close" onclick="closeModal()">tudo bem ♡</button>
@@ -402,8 +406,8 @@
 
 <script>
   // ── CONFIG ──────────────────────────────────────────────
-  const START_DATE   = new Date('2026-06-01T00:00:00'); // dia 1
-  const TARGET_DATE  = new Date('2026-06-18T00:00:00'); // aniversário
+  const START_DATE   = new Date('2025-06-01T00:00:00'); // dia 1
+  const TARGET_DATE  = new Date('2025-06-18T00:00:00'); // aniversário
 
   const PHRASE1_WORDS = ['Absolutamente', 'do', 'nada,', 'apareceu', 'alguém', 'que', 'se', 'propôs', 'a', 'ficar.'];
   const PHRASE2_WORDS = ['Essa', 'pessoa', 'me', 'ensina', 'o', 'que', 'é', 'amar.'];
@@ -485,6 +489,10 @@
   const day = getDayNumber();
   renderPhrases(day);
   renderDayInfo(day);
+
+  // Bloqueia seleção de texto e menu de contexto
+  document.addEventListener('contextmenu', e => e.preventDefault());
+  document.addEventListener('selectstart', e => e.preventDefault());
 </script>
 </body>
 </html>
