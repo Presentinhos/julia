@@ -326,12 +326,37 @@
       transition: width 1s ease;
     }
 
+    /* Quiz button */
+    .quiz-btn {
+      animation: fadeUp 1s 0.6s ease both;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: none;
+      border: 1px solid rgba(201,169,110,0.2);
+      color: var(--text-muted);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 0.75rem 1.8rem;
+      border-radius: 100px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: border-color 0.2s, color 0.2s;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .quiz-btn:active {
+      border-color: rgba(201,169,110,0.5);
+      color: var(--gold);
+    }
+
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(16px); }
       to   { opacity: 1; transform: translateY(0); }
     }
 
-    /* Present SVG pulse */
     @keyframes float {
       0%, 100% { transform: translateY(0px); }
       50% { transform: translateY(-6px); }
@@ -356,24 +381,16 @@
   <div class="present-wrapper">
     <button class="present-btn" onclick="openModal()" aria-label="Abrir presente">
       <svg class="present-icon" viewBox="0 0 90 90" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <!-- Box bottom -->
         <rect x="10" y="42" width="70" height="38" rx="4" fill="#2a2018" stroke="#c9a96e" stroke-width="1.5"/>
-        <!-- Box lid -->
         <rect x="6" y="32" width="78" height="14" rx="4" fill="#332819" stroke="#c9a96e" stroke-width="1.5"/>
-        <!-- Vertical ribbon -->
         <rect x="41" y="32" width="8" height="48" fill="rgba(201,169,110,0.35)"/>
-        <!-- Horizontal ribbon on lid -->
         <rect x="6" y="37" width="78" height="4" fill="rgba(201,169,110,0.35)"/>
-        <!-- Bow left loop -->
         <path d="M45 32 Q28 14 22 22 Q16 30 45 32" fill="none" stroke="#c9a96e" stroke-width="1.8" stroke-linecap="round"/>
-        <!-- Bow right loop -->
         <path d="M45 32 Q62 14 68 22 Q74 30 45 32" fill="none" stroke="#c9a96e" stroke-width="1.8" stroke-linecap="round"/>
-        <!-- Bow center -->
         <circle cx="45" cy="32" r="3.5" fill="#c9a96e"/>
-        <!-- Shimmer -->
         <ellipse cx="45" cy="61" rx="20" ry="4" fill="rgba(201,169,110,0.06)"/>
       </svg>
-      <span class="present-hint">Toque para abrir</span>
+      <span class="present-hint">toque para ver</span>
     </button>
   </div>
 
@@ -395,6 +412,11 @@
     </div>
   </div>
 
+  <!-- Quiz button -->
+  <a class="quiz-btn" href="quiz.html">
+    ✦ quiz
+  </a>
+
 </div>
 
 <!-- Modal -->
@@ -402,20 +424,18 @@
   <div class="modal">
     <span class="modal-emoji">🔒</span>
     <h2 class="modal-title">Ainda não, meu bem</h2>
-    <p class="modal-text">Este presente só poderá ser aberto no dia do seu aniversário.<br>Aguarda um pouquinho hihihihihi </p>
+    <p class="modal-text">Este presente só poderá ser aberto no dia do seu aniversário.<br>Aguarda um pouquinho...</p>
     <div class="countdown" id="countdown"></div>
-    <button class="modal-close" onclick="closeModal()">Uhum ♡</button>
+    <button class="modal-close" onclick="closeModal()">tudo bem ♡</button>
   </div>
 </div>
 
 <script>
-  // ── CONFIG ──────────────────────────────────────────────
-  const START_DATE   = new Date('2026-06-01T00:00:00'); // dia 1
-  const TARGET_DATE  = new Date('2026-06-18T00:00:00'); // aniversário
+  const START_DATE   = new Date('2026-06-01T00:00:00');
+  const TARGET_DATE  = new Date('2026-06-18T00:00:00');
 
   const PHRASE1_WORDS = ['Absolutamente', 'do', 'nada,', 'apareceu', 'alguém', 'que', 'se', 'propôs', 'a', 'ficar.'];
   const PHRASE2_WORDS = ['Essa', 'pessoa', 'me', 'ensina', 'o', 'que', 'é', 'amar.'];
-  // ────────────────────────────────────────────────────────
 
   function getDayNumber() {
     const now = new Date();
@@ -431,7 +451,6 @@
     const p1 = document.getElementById('phrase1');
     const p2 = document.getElementById('phrase2');
 
-    // Phrase 1: words revealed from day 1 to day 10
     PHRASE1_WORDS.forEach((word, i) => {
       const span = document.createElement('span');
       span.className = 'word ' + (day >= i + 1 ? 'revealed' : 'blurred');
@@ -439,7 +458,6 @@
       p1.appendChild(span);
     });
 
-    // Phrase 2: words revealed from day 11 to day 18
     PHRASE2_WORDS.forEach((word, i) => {
       const span = document.createElement('span');
       const revealDay = 11 + i;
@@ -489,12 +507,10 @@
     if (e.target === document.getElementById('modalOverlay')) closeModal();
   }
 
-  // Init
   const day = getDayNumber();
   renderPhrases(day);
   renderDayInfo(day);
 
-  // Bloqueia seleção de texto e menu de contexto
   document.addEventListener('contextmenu', e => e.preventDefault());
   document.addEventListener('selectstart', e => e.preventDefault());
 </script>
