@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <title>Carta ✦</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0d0b0f;
+      --surface: #141118;
+      --gold: #c9a96e;
+      --gold-light: #e8c98a;
+      --text: #f0e8dd;
+      --text-muted: #7a6e64;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { background: var(--bg); }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1.5rem 3rem;
+      overflow-x: hidden;
+      position: relative;
+      -webkit-user-select: none;
+      user-select: none;
+    }
+
+    html::before, body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 40% at 50% 0%, rgba(201,169,110,0.08) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 30% at 80% 80%, rgba(180,100,80,0.06) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 420px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+      animation: fadeUp 0.8s ease both;
+    }
+
+    .label {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1rem;
+      color: var(--gold);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    .card {
+      width: 100%;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 20px;
+      padding: 2rem 1.75rem;
+    }
+
+    .message-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      font-weight: 300;
+      line-height: 1.9;
+      color: var(--text);
+    }
+
+    .signature {
+      margin-top: 1.5rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1rem;
+      color: var(--gold);
+      text-align: right;
+    }
+
+    .back-link {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-decoration: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <p class="label">carta</p>
+
+  <div class="card">
+    <p class="message-text">
+      Tenho saudades de ti, garota...
+    Tu anda meio distante, essa distância me envolve de dúvidas que não tem respostas, mas ficam marcadas.
+    A grande verdade é que o que resta são saudades, sabe? De ouvir mais sobre seu dia, suas fofocas, suas conquistas... você.
+<br><br>
+    Não sei o que causou o afastamento, qualquer coisa que eu converso sobre já gera brigas, então tento confiar em ti
+    e seguir em frente
+<br><br>
+    Mas saiba que do outro lado da tela, tem alguém que só quer te ter de volta.
+    </p>
+    <p class="signature">— Bernardo</p>
+  </div>
+
+  <a class="back-link" href="index.html">← voltar</a>
+
+</div>
+</body>
+</html>
