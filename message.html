@@ -8,12 +8,12 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #0d0b0f;
-      --surface: #141118;
-      --gold: #c9a96e;
-      --gold-light: #e8c98a;
-      --text: #f0e8dd;
-      --text-muted: #7a6e64;
+      --bg: #1a1320;
+      --surface: #221829;
+      --gold: #c9a6d4;
+      --gold-light: #e0c4ea;
+      --text: #f0e8f5;
+      --text-muted: #9a7faa;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -41,10 +41,30 @@
       position: fixed;
       inset: 0;
       background:
-        radial-gradient(ellipse 60% 40% at 50% 0%, rgba(201,169,110,0.08) 0%, transparent 70%),
-        radial-gradient(ellipse 40% 30% at 80% 80%, rgba(180,100,80,0.06) 0%, transparent 60%);
+        radial-gradient(ellipse 60% 40% at 50% 0%, rgba(180,140,210,0.12) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 30% at 80% 80%, rgba(210,140,180,0.10) 0%, transparent 60%);
       pointer-events: none;
       z-index: 0;
+    }
+
+    /* Girassóis decorativos */
+    .sunflower {
+      position: fixed;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.13;
+      animation: floatSun 6s ease-in-out infinite;
+    }
+    .sunflower:nth-child(1) { top: 4%;    left: 5%;   font-size: 2.4rem; animation-delay: 0s; }
+    .sunflower:nth-child(2) { top: 8%;    right: 8%;  font-size: 3rem;   animation-delay: 1s; }
+    .sunflower:nth-child(3) { top: 40%;   left: 2%;   font-size: 2rem;   animation-delay: 2s; }
+    .sunflower:nth-child(4) { bottom: 20%; right: 4%; font-size: 2.8rem; animation-delay: 0.5s; }
+    .sunflower:nth-child(5) { bottom: 6%; left: 10%;  font-size: 2.2rem; animation-delay: 1.5s; }
+    .sunflower:nth-child(6) { top: 65%;   right: 6%;  font-size: 1.8rem; animation-delay: 3s; }
+
+    @keyframes floatSun {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50%       { transform: translateY(-8px) rotate(5deg); }
     }
 
     .container {
@@ -109,6 +129,15 @@
   </style>
 </head>
 <body>
+
+<!-- Girassóis -->
+<div class="sunflower">🌻</div>
+<div class="sunflower">🌻</div>
+<div class="sunflower">🌻</div>
+<div class="sunflower">🌻</div>
+<div class="sunflower">🌻</div>
+<div class="sunflower">🌻</div>
+
 <div class="container">
 
   <p class="label">carta</p>

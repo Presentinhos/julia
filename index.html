@@ -8,20 +8,18 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #0d0b0f;
-      --surface: #141118;
-      --gold: #c9a96e;
-      --gold-light: #e8c98a;
-      --text: #f0e8dd;
-      --text-muted: #7a6e64;
-      --blur-color: #4a3f35;
+      --bg: #1a1320;
+      --surface: #221829;
+      --gold: #c9a6d4;
+      --gold-light: #e0c4ea;
+      --text: #f0e8f5;
+      --text-muted: #9a7faa;
+      --accent: #d4a6c0;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
-    html {
-      background: var(--bg);
-    }
+    html { background: var(--bg); }
 
     body {
       background: var(--bg);
@@ -39,16 +37,36 @@
       user-select: none;
     }
 
-    /* Atmospheric background */
     html::before, body::before {
       content: '';
       position: fixed;
       inset: 0;
       background:
-        radial-gradient(ellipse 60% 40% at 50% 0%, rgba(201,169,110,0.08) 0%, transparent 70%),
-        radial-gradient(ellipse 40% 30% at 80% 80%, rgba(180,100,80,0.06) 0%, transparent 60%);
+        radial-gradient(ellipse 60% 40% at 50% 0%, rgba(180,140,210,0.12) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 30% at 80% 80%, rgba(210,140,180,0.10) 0%, transparent 60%);
       pointer-events: none;
       z-index: 0;
+    }
+
+    /* Girassóis decorativos */
+    .sunflower {
+      position: fixed;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.13;
+      font-size: 3rem;
+      animation: floatSun 6s ease-in-out infinite;
+    }
+    .sunflower:nth-child(1) { top: 4%; left: 5%;  font-size: 2.4rem; animation-delay: 0s; }
+    .sunflower:nth-child(2) { top: 8%; right: 8%; font-size: 3rem;   animation-delay: 1s; }
+    .sunflower:nth-child(3) { top: 40%; left: 2%; font-size: 2rem;   animation-delay: 2s; }
+    .sunflower:nth-child(4) { bottom: 20%; right: 4%; font-size: 2.8rem; animation-delay: 0.5s; }
+    .sunflower:nth-child(5) { bottom: 6%; left: 10%; font-size: 2.2rem; animation-delay: 1.5s; }
+    .sunflower:nth-child(6) { top: 65%; right: 6%; font-size: 1.8rem; animation-delay: 3s; }
+
+    @keyframes floatSun {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50%       { transform: translateY(-8px) rotate(5deg); }
     }
 
     .container {
@@ -62,7 +80,6 @@
       gap: 2.5rem;
     }
 
-    /* Header */
     .header {
       text-align: center;
       animation: fadeUp 1s ease both;
@@ -88,7 +105,6 @@
       color: var(--text);
     }
 
-    /* Present */
     .present-wrapper {
       animation: fadeUp 1s 0.2s ease both;
       display: flex;
@@ -114,12 +130,11 @@
       height: 90px;
       position: relative;
       transition: transform 0.3s ease;
-      filter: drop-shadow(0 0 20px rgba(201,169,110,0.3));
+      filter: drop-shadow(0 0 20px rgba(180,140,210,0.4));
+      animation: float 3s ease-in-out infinite;
     }
 
-    .present-btn:active .present-icon {
-      transform: scale(0.92);
-    }
+    .present-btn:active .present-icon { transform: scale(0.92); }
 
     .present-hint {
       font-size: 0.72rem;
@@ -128,11 +143,11 @@
       text-transform: uppercase;
     }
 
-    /* Modal */
+    /* Modal base */
     .modal-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(13,11,15,0.85);
+      background: rgba(20,15,28,0.85);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       display: flex;
@@ -145,14 +160,11 @@
       transition: opacity 0.4s ease;
     }
 
-    .modal-overlay.active {
-      opacity: 1;
-      pointer-events: all;
-    }
+    .modal-overlay.active { opacity: 1; pointer-events: all; }
 
     .modal {
       background: var(--surface);
-      border: 1px solid rgba(201,169,110,0.2);
+      border: 1px solid rgba(180,140,210,0.25);
       border-radius: 20px;
       padding: 2.5rem 2rem;
       text-align: center;
@@ -160,18 +172,12 @@
       width: 100%;
       transform: translateY(20px) scale(0.97);
       transition: transform 0.4s ease;
-      box-shadow: 0 40px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(201,169,110,0.05);
+      box-shadow: 0 40px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(180,140,210,0.05);
     }
 
-    .modal-overlay.active .modal {
-      transform: translateY(0) scale(1);
-    }
+    .modal-overlay.active .modal { transform: translateY(0) scale(1); }
 
-    .modal-emoji {
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
-      display: block;
-    }
+    .modal-emoji { font-size: 2.5rem; margin-bottom: 1rem; display: block; }
 
     .modal-title {
       font-family: 'Cormorant Garamond', serif;
@@ -227,8 +233,8 @@
     }
 
     .modal-close {
-      background: rgba(201,169,110,0.1);
-      border: 1px solid rgba(201,169,110,0.25);
+      background: rgba(180,140,210,0.1);
+      border: 1px solid rgba(180,140,210,0.25);
       color: var(--gold);
       font-family: 'DM Sans', sans-serif;
       font-size: 0.8rem;
@@ -241,8 +247,83 @@
       -webkit-tap-highlight-color: transparent;
     }
 
-    .modal-close:active {
-      background: rgba(201,169,110,0.2);
+    .modal-close:active { background: rgba(180,140,210,0.2); }
+
+    /* ── Modal de senha (dia 18) ── */
+    .password-input-wrap {
+      position: relative;
+      margin-bottom: 1.2rem;
+    }
+
+    .password-input {
+      width: 100%;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(180,140,210,0.3);
+      border-radius: 12px;
+      padding: 0.85rem 1.2rem;
+      color: var(--text);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      text-align: center;
+      letter-spacing: 0.2em;
+      outline: none;
+      transition: border-color 0.2s;
+      -webkit-user-select: auto;
+      user-select: auto;
+    }
+
+    .password-input:focus {
+      border-color: rgba(180,140,210,0.7);
+    }
+
+    .password-input.error {
+      border-color: rgba(220, 100, 120, 0.7);
+      animation: shake 0.4s ease;
+    }
+
+    .password-error {
+      font-size: 0.75rem;
+      color: rgba(220, 100, 120, 0.9);
+      margin-top: 0.5rem;
+      display: none;
+    }
+
+    .password-error.visible { display: block; }
+
+    .password-submit {
+      background: rgba(180,140,210,0.15);
+      border: 1px solid rgba(180,140,210,0.35);
+      color: var(--gold-light);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.8rem 2.2rem;
+      border-radius: 100px;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+      -webkit-tap-highlight-color: transparent;
+      width: 100%;
+    }
+
+    .password-submit:active {
+      background: rgba(180,140,210,0.28);
+      transform: scale(0.97);
+    }
+
+    .password-hint {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      margin-top: 0.9rem;
+      line-height: 1.6;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20% { transform: translateX(-6px); }
+      40% { transform: translateX(6px); }
+      60% { transform: translateX(-4px); }
+      80% { transform: translateX(4px); }
     }
 
     /* Phrases */
@@ -252,14 +333,6 @@
       display: flex;
       flex-direction: column;
       gap: 1.4rem;
-    }
-
-    .phrase-label {
-      font-size: 0.65rem;
-      color: var(--text-muted);
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      margin-bottom: 0.6rem;
     }
 
     .phrase {
@@ -281,17 +354,13 @@
 
     .word {
       display: inline-block;
-      position: relative;
       transition: filter 0.8s ease, color 0.8s ease;
     }
 
-    .word.revealed {
-      color: var(--text);
-      filter: none;
-    }
+    .word.revealed { color: var(--text); filter: none; }
 
     .word.blurred {
-      color: rgba(240,232,221,0.08);
+      color: rgba(240,232,245,0.08);
       filter: blur(5px);
       user-select: none;
       -webkit-user-select: none;
@@ -326,14 +395,14 @@
       transition: width 1s ease;
     }
 
-    /* Quiz button */
+    /* Buttons */
     .quiz-btn {
       animation: fadeUp 1s 0.6s ease both;
       display: flex;
       align-items: center;
       gap: 0.5rem;
       background: none;
-      border: 1px solid rgba(201,169,110,0.2);
+      border: 1px solid rgba(180,140,210,0.25);
       color: var(--text-muted);
       font-family: 'DM Sans', sans-serif;
       font-size: 0.75rem;
@@ -348,7 +417,7 @@
     }
 
     .quiz-btn:active {
-      border-color: rgba(201,169,110,0.5);
+      border-color: rgba(180,140,210,0.6);
       color: var(--gold);
     }
 
@@ -359,42 +428,43 @@
 
     @keyframes float {
       0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-6px); }
-    }
-
-    .present-icon {
-      animation: float 3s ease-in-out infinite;
+      50%       { transform: translateY(-6px); }
     }
   </style>
 </head>
 <body>
 
+<!-- Girassóis -->
+<div class="sunflower">🌻</div>
+<div class="sunflower">🌻</div>
+<div class="sunflower">🌻</div>
+<div class="sunflower">🌻</div>
+<div class="sunflower">🌻</div>
+<div class="sunflower">🌻</div>
+
 <div class="container">
 
-  <!-- Header -->
   <div class="header">
     <p class="greeting">para você,</p>
     <h1 class="name">Júlia</h1>
   </div>
 
-  <!-- Present -->
   <div class="present-wrapper">
     <button class="present-btn" onclick="openModal()" aria-label="Abrir presente">
       <svg class="present-icon" viewBox="0 0 90 90" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect x="10" y="42" width="70" height="38" rx="4" fill="#2a2018" stroke="#c9a96e" stroke-width="1.5"/>
-        <rect x="6" y="32" width="78" height="14" rx="4" fill="#332819" stroke="#c9a96e" stroke-width="1.5"/>
-        <rect x="41" y="32" width="8" height="48" fill="rgba(201,169,110,0.35)"/>
-        <rect x="6" y="37" width="78" height="4" fill="rgba(201,169,110,0.35)"/>
-        <path d="M45 32 Q28 14 22 22 Q16 30 45 32" fill="none" stroke="#c9a96e" stroke-width="1.8" stroke-linecap="round"/>
-        <path d="M45 32 Q62 14 68 22 Q74 30 45 32" fill="none" stroke="#c9a96e" stroke-width="1.8" stroke-linecap="round"/>
-        <circle cx="45" cy="32" r="3.5" fill="#c9a96e"/>
-        <ellipse cx="45" cy="61" rx="20" ry="4" fill="rgba(201,169,110,0.06)"/>
+        <rect x="10" y="42" width="70" height="38" rx="4" fill="#2a1f35" stroke="#c9a6d4" stroke-width="1.5"/>
+        <rect x="6" y="32" width="78" height="14" rx="4" fill="#33243d" stroke="#c9a6d4" stroke-width="1.5"/>
+        <rect x="41" y="32" width="8" height="48" fill="rgba(180,140,210,0.35)"/>
+        <rect x="6" y="37" width="78" height="4" fill="rgba(180,140,210,0.35)"/>
+        <path d="M45 32 Q28 14 22 22 Q16 30 45 32" fill="none" stroke="#c9a6d4" stroke-width="1.8" stroke-linecap="round"/>
+        <path d="M45 32 Q62 14 68 22 Q74 30 45 32" fill="none" stroke="#c9a6d4" stroke-width="1.8" stroke-linecap="round"/>
+        <circle cx="45" cy="32" r="3.5" fill="#c9a6d4"/>
+        <ellipse cx="45" cy="61" rx="20" ry="4" fill="rgba(180,140,210,0.06)"/>
       </svg>
       <span class="present-hint">toque para ver</span>
     </button>
   </div>
 
-  <!-- Phrases -->
   <div class="phrases">
     <div class="phrase" id="phrase1-box">
       <div class="phrase-words" id="phrase1"></div>
@@ -404,7 +474,6 @@
     </div>
   </div>
 
-  <!-- Day info -->
   <div class="day-info" style="width:100%">
     <p class="day-text" id="dayText"></p>
     <div class="day-progress">
@@ -412,7 +481,6 @@
     </div>
   </div>
 
-  <!-- Buttons -->
   <div style="display:flex;gap:0.75rem;width:100%;justify-content:center;">
     <!-- <a class="quiz-btn" href="quiz.html">✦ quiz</a> -->
     <a class="quiz-btn" href="message.html">✦ carta 2</a>
@@ -420,7 +488,7 @@
 
 </div>
 
-<!-- Modal -->
+<!-- Modal: contagem regressiva (antes do dia 18) -->
 <div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
   <div class="modal">
     <span class="modal-emoji">🔒</span>
@@ -431,13 +499,39 @@
   </div>
 </div>
 
+<!-- Modal: senha (dia 18) -->
+<div class="modal-overlay" id="modalPassword" onclick="closePasswordOutside(event)">
+  <div class="modal">
+    <span class="modal-emoji">🎁</span>
+    <h2 class="modal-title">Chegou o dia!</h2>
+    <p class="modal-text" style="margin-bottom:1.4rem;">
+      Qual a senha em?
+    </p>
+    <div class="password-input-wrap">
+      <input
+        class="password-input"
+        id="passwordInput"
+        type="text"
+        placeholder="sua resposta..."
+        autocomplete="off"
+        autocorrect="off"
+        autocapitalize="none"
+        spellcheck="false"
+        onkeydown="if(event.key==='Enter') checkPassword()"
+      />
+      <p class="password-error" id="passwordError">nah</p>
+    </div>
+    <button class="password-submit" onclick="checkPassword()">abrir ♡</button>
+  </div>
+</div>
+
 <script>
-  const START_DATE   = new Date('2026-06-01T00:00:00');
-  const TARGET_DATE  = new Date('2026-06-18T00:00:00-03:00');
+  const START_DATE  = new Date('2026-06-01T00:00:00');
+  const TARGET_DATE = new Date('2026-06-18T00:00:00');
+  const CORRECT_PASSWORD = 'girassol';
 
   const PHRASE1_WORDS = ['Absolutamente', 'do', 'nada,', 'apareceu', 'alguém', 'que', 'se', 'propôs', 'a', 'ficar.'];
   const PHRASE2_WORDS = ['Essa', 'pessoa', 'me', 'ensina', 'o', 'que', 'é', 'amar.'];
-
 
   function getDayNumber() {
     const now = new Date();
@@ -449,17 +543,20 @@
     return Math.max(1, Math.min(diff, 18));
   }
 
+  function isBirthday() {
+    const now = new Date();
+    return now >= TARGET_DATE;
+  }
+
   function renderPhrases(day) {
     const p1 = document.getElementById('phrase1');
     const p2 = document.getElementById('phrase2');
-
     PHRASE1_WORDS.forEach((word, i) => {
       const span = document.createElement('span');
       span.className = 'word ' + (day >= i + 1 ? 'revealed' : 'blurred');
       span.textContent = word;
       p1.appendChild(span);
     });
-
     PHRASE2_WORDS.forEach((word, i) => {
       const span = document.createElement('span');
       const revealDay = 11 + i;
@@ -486,7 +583,6 @@
     const days    = Math.floor(diff / 86400000);
     const hours   = Math.floor((diff % 86400000) / 3600000);
     const minutes = Math.floor((diff % 3600000) / 60000);
-
     document.getElementById('countdown').innerHTML = `
       <div class="count-block"><span class="count-num">${days}</span><span class="count-label">dias</span></div>
       <span class="count-sep">·</span>
@@ -497,8 +593,15 @@
   }
 
   function openModal() {
-    updateCountdown();
-    document.getElementById('modalOverlay').classList.add('active');
+    if (isBirthday()) {
+      // Dia 18: abre modal de senha
+      document.getElementById('modalPassword').classList.add('active');
+      setTimeout(() => document.getElementById('passwordInput').focus(), 400);
+    } else {
+      // Antes do dia 18: abre contagem regressiva
+      updateCountdown();
+      document.getElementById('modalOverlay').classList.add('active');
+    }
   }
 
   function closeModal() {
@@ -507,6 +610,36 @@
 
   function closeModalOutside(e) {
     if (e.target === document.getElementById('modalOverlay')) closeModal();
+  }
+
+  function closePasswordOutside(e) {
+    if (e.target === document.getElementById('modalPassword')) {
+      document.getElementById('modalPassword').classList.remove('active');
+    }
+  }
+
+  function checkPassword() {
+    const input = document.getElementById('passwordInput');
+    const errorEl = document.getElementById('passwordError');
+    const val = input.value.trim().toLowerCase()
+      .normalize('NFD').replace(/[\u0300-\u036f]/g, ''); // remove acentos
+
+    const correctNorm = CORRECT_PASSWORD
+      .normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+
+    if (val === correctNorm) {
+      // Certa! Vai para a página final
+      input.classList.remove('error');
+      errorEl.classList.remove('visible');
+      document.getElementById('modalPassword').style.opacity = '0';
+      setTimeout(() => { window.location.href = 'final.html'; }, 300);
+    } else {
+      // Errada
+      input.classList.add('error');
+      errorEl.classList.add('visible');
+      input.value = '';
+      setTimeout(() => input.classList.remove('error'), 500);
+    }
   }
 
   const day = getDayNumber();
